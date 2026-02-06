@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Ghost Chat</title>
+  <style>
+    #chat { border:1px solid #000; height:300px; overflow:auto; padding:5px; margin-bottom:5px; }
+    input { margin:2px; }
+  </style>
+</head>
 <body>
-<input id="name" placeholder=" ياجحش اسمك">
-<input id="msg" placeholder="رسالة">
-<button onclick="send()">Send</button>
-<div id="chat"></div>
+  <input id="name" placeholder="اسمك">
+  <input id="msg" placeholder="رسالة">
+  <button id="sendBtn">Send</button>
+  <div id="chat"></div>
 
-<script>
-const ws = new WebSocket("wss://YOUR_RENDER_URL"); // لاحقًا
-
-ws.onmessage = e => {
-  document.getElementById("chat").innerHTML += "<p>" + e.data + "</p>";
-};
-
-function send() {
-  const name = document.getElementById("name").value;
-  const msg = document.getElementById("msg").value;
-  ws.send(name + ": " + msg);
-  document.getElementById("msg").value = "";
-}
-</script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
