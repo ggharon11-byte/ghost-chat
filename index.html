@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<input id="name" placeholder="اسمك">
+<input id="msg" placeholder="رسالة">
+<button onclick="send()">Send</button>
+<div id="chat"></div>
+
+<script>
+const ws = new WebSocket("wss://YOUR_RENDER_URL"); // لاحقًا
+
+ws.onmessage = e => {
+  document.getElementById("chat").innerHTML += "<p>" + e.data + "</p>";
+};
+
+function send() {
+  const name = document.getElementById("name").value;
+  const msg = document.getElementById("msg").value;
+  ws.send(name + ": " + msg);
+  document.getElementById("msg").value = "";
+}
+</script>
+</body>
+</html>
