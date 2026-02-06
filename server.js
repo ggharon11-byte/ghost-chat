@@ -4,13 +4,15 @@ const http = require('http').createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(http);
 
-app.use(express.static('public')); // يربط مجلد public
+app.use(express.static('public')); // ربط مجلد public
 
 io.on('connection', (socket) => {
   console.log('User connected');
 
+  // استقبال الرسائل من أي مستخدم
   socket.on('chat message', ({ from, msg }) => {
-    io.emit('chat message', { from, msg }); // تبعث لكل المستخدمين
+    // تبعث لكل المستخدمين، بما فيهم اللي أرسل
+    io.emit('chat message', { from, msg });
   });
 
   socket.on('disconnect', () => {
